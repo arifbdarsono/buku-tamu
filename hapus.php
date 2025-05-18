@@ -1,16 +1,23 @@
 <?php
-require 'config.php';
+session_start();
+require 'config/database.php';
 
-// Ambil ID dari URL dan pastikan berupa angka
-$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
-
-if ($id > 0) {
-    $stmt = mysqli_prepare($conn, "DELETE FROM tamu WHERE id = ?");
-    mysqli_stmt_bind_param($stmt, "i", $id);
-    mysqli_stmt_execute($stmt);
+// Hanya admin yang boleh menghapus
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
+    die("Akses ditolak.");
 }
 
-// Arahkan kembali ke halaman utama
+// Validasi ID
+$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+if ($id <= 0) {
+    die("ID tidak valid.");
+}
+
+// Hapus data dengan prepared statement
+$stmt = $conn->prepare("DELETE FROM tamu WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+
+// Kembali ke halaman utama
 header("Location: index.php");
 exit;
-?>
