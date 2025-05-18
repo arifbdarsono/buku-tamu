@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'config/database.php';
 
 // Konfigurasi pagination
@@ -45,6 +46,17 @@ $result = $stmt->get_result();
 <body>
     <h1>Daftar Buku Tamu</h1>
 
+    <!-- Navigasi admin -->
+    <?php if (isset($_SESSION['admin'])): ?>
+    <p>Login sebagai admin |
+       <a href="admin/dashboard.php">Dashboard</a> |
+       <a href="logout.php">Logout</a> |
+       <a href="export.php">Ekspor CSV</a></p>
+<?php else: ?>
+    <p><a href="login.php">Login Admin</a></p>
+<?php endif; ?>
+
+    <!-- Form pencarian -->
     <form method="GET" action="index.php">
         <input type="text" name="cari" value="<?php echo htmlspecialchars($keyword); ?>" placeholder="Cari nama atau pesan...">
         <button type="submit">Cari</button>
@@ -52,26 +64,32 @@ $result = $stmt->get_result();
 
     <p><a href="tambah.php">+ Tambah Entri Buku Tamu</a></p>
 
+    <!-- Daftar entri -->
     <?php while ($row = $result->fetch_assoc()): ?>
         <hr>
         <p><strong><?php echo htmlspecialchars($row['nama']); ?></strong></p>
         <p><?php echo nl2br(htmlspecialchars($row['pesan'])); ?></p>
         <small><?php echo htmlspecialchars($row['waktu']); ?></small><br>
         <small>IP: <?php echo htmlspecialchars($row['ip']); ?> | User Agent: <?php echo htmlspecialchars($row['user_agent']); ?></small>
+        <?php if (isset($_SESSION['admin']) && $_SESSION['admin'] === true): ?>
+            <br><a href="hapus.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Hapus entri ini?')">[Hapus]</a>
+			<br><a href="edit.php?id=<?php echo $row['id']; ?>">[Edit]</a>
+        <?php endif; ?>
     <?php endwhile; ?>
 
+    <!-- Navigasi halaman -->
     <hr>
     <p>Halaman:
-<?php for ($i = 1; $i <= $pages; $i++): ?>
-    <?php if ($i == $halaman): ?>
-        <strong><?php echo $i; ?></strong>
-    <?php else: ?>
-        <a href="?halaman=<?php echo $i; ?><?php if ($keyword) echo '&cari=' . urlencode($keyword); ?>">
-            <?php echo $i; ?>
-        </a>
-    <?php endif; ?>
-<?php endfor; ?>
-</p>
+    <?php for ($i = 1; $i <= $pages; $i++): ?>
+        <?php if ($i == $halaman): ?>
+            <strong><?php echo $i; ?></strong>
+        <?php else: ?>
+            <a href="?halaman=<?php echo $i; ?><?php if ($keyword) echo '&cari=' . urlencode($keyword); ?>">
+                <?php echo $i; ?>
+            </a>
+        <?php endif; ?>
+    <?php endfor; ?>
+    </p>
 </body>
 </html>
 
