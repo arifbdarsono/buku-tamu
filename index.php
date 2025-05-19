@@ -76,6 +76,12 @@ $result = $stmt->get_result();
 			<br><a href="edit.php?id=<?php echo $row['id']; ?>">[Edit]</a>
         <?php endif; ?>
     <?php endwhile; ?>
+	
+	<?php if ($result->num_rows === 0): ?>
+    <p><strong>Tidak ada entri yang ditemukan.</strong></p>
+    <p>Silakan coba kata kunci lain atau <a href="index.php">kembali ke buku tamu</a>.</p>
+<?php endif; ?>
+
 
     <!-- Navigasi halaman -->
     <hr>
