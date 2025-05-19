@@ -70,8 +70,8 @@ $result = $stmt->get_result();
         <p><strong><?php echo htmlspecialchars($row['nama']); ?></strong></p>
         <p><?php echo nl2br(htmlspecialchars($row['pesan'])); ?></p>
         <small><?php echo htmlspecialchars($row['waktu']); ?></small><br>
-        <small>IP: <?php echo htmlspecialchars($row['ip']); ?> | User Agent: <?php echo htmlspecialchars($row['user_agent']); ?></small>
         <?php if (isset($_SESSION['admin']) && $_SESSION['admin'] === true): ?>
+		    <small>IP: <?php echo htmlspecialchars($row['ip']); ?> | User Agent: <?php echo htmlspecialchars($row['user_agent']); ?></small>
             <br><a href="hapus.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Hapus entri ini?')">[Hapus]</a>
 			<br><a href="edit.php?id=<?php echo $row['id']; ?>">[Edit]</a>
         <?php endif; ?>
