@@ -37,6 +37,4 @@ if (!isset($_SESSION['csrf_token'])) {
     <input type="submit" value="Kirim">
 </form>
 
-<p><a href="index.php">Kembali ke daftar tamu</a></p>
-
 <?php require 'includes/footer.php'; ?>
