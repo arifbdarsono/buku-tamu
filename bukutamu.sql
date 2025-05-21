@@ -7,5 +7,8 @@ CREATE TABLE tamu (
     pesan TEXT NOT NULL,
     waktu TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ip VARCHAR(45) NOT NULL,
-    user_agent TEXT NOT NULL
+    user_agent TEXT NOT NULL,
+	email VARCHAR(100),
+	website VARCHAR(100),
+	genre ENUM('male', 'female') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
