@@ -1,0 +1,74 @@
+# GitHub Pages Configuration
+title: Buku Tamu
+description: A simple guest book application built with PHP and MySQL
+author: arifbdarsono
+email: your-email@example.com
+
+# Theme
+theme: minima
+# Alternative themes you can use:
+# theme: jekyll-theme-cayman
+# theme: jekyll-theme-minimal
+# theme: jekyll-theme-architect
+# theme: jekyll-theme-slate
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# GitHub Pages settings
+repository: arifbdarsono/buku-tamu
+github_username: arifbdarsono
+
+# Navigation
+header_pages:
+  - about.md
+  - installation.md
+  - usage.md
+
+# Exclude files from processing
+exclude:
+  - "*.php"
+  - "*.sql"
+  - "*.zip"
+  - config/
+  - admin/
+  - includes/
+  - logs/
+  - vendor/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - "*.gem"
+  - "*.gemspec"
+  - tools/
+  - docs/
+  - Rakefile
+  - README.md.backup
+
+# Include files
+include:
+  - _pages
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+
+# SEO settings
+lang: en
+timezone: Asia/Jakarta
+
+# Social links (optional)
+social:
+  github: arifbdarsono
+  # twitter: your_twitter
+  # linkedin: your_linkedin
+
+# Google Analytics (optional)
+# google_analytics: UA-XXXXXXXX-X
